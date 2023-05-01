@@ -1,4 +1,6 @@
 
+using Microsoft.EntityFrameworkCore;
+
 namespace MB.KFC.WebApi
 {
     public class Program
@@ -13,6 +15,10 @@ namespace MB.KFC.WebApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            // TODO Add the EF core project and the db context and uncomment the two line below
+            //builder.Services.AddDbContext<KfcDbContext>(options =>
+            //    options.UseSqlServer(builder.Configuration.GetConnectionString("MvcMovieContext")));
 
             var app = builder.Build();
 
