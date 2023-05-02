@@ -1,4 +1,5 @@
 
+using MB.KFC.EfCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace MB.KFC.WebApi
@@ -11,14 +12,15 @@ namespace MB.KFC.WebApi
 
             // Add services to the container.
 
+            builder.Services.AddAutoMapper(typeof(Program));
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // TODO Add the EF core project and the db context and uncomment the two line below
-            //builder.Services.AddDbContext<KfcDbContext>(options =>
-            //    options.UseSqlServer(builder.Configuration.GetConnectionString("MvcMovieContext")));
+            builder.Services.AddDbContext<KfcDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection")));
 
             var app = builder.Build();
 
