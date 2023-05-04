@@ -68,14 +68,17 @@ namespace MB.KFC.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditCategory(int id, Category category)
+        public async Task<IActionResult> EditCategory(int id, CategoryDto categoryDto)
         {
-            if (id != category.Id)
+            if (id != categoryDto.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(category).State = EntityState.Modified;
+            var category = _mapper.Map<Category>(categoryDto);
+
+            //_context.Entry(category).State = EntityState.Modified;
+            _context.Update(category);
 
             try
             {
@@ -99,11 +102,8 @@ namespace MB.KFC.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            if (_context.Categories == null)
-            {
-                return NotFound();
-            }
             var category = await _context.Categories.FindAsync(id);
+
             if (category == null)
             {
                 return NotFound();
