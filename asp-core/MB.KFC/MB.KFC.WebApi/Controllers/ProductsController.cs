@@ -27,20 +27,20 @@ namespace MB.KFC.WebApi.Controllers
         #region Actions
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductListDto>>> GetProducts()
         {
             var products = await _context
                                     .Products
                                     .Include(p => p.Category)
                                     .ToListAsync();
 
-            var productDtos = _mapper.Map<List<ProductDto>>(products);
+            var productDtos = _mapper.Map<List<ProductListDto>>(products);
 
             return productDtos;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDto>> GetProduct(int id)
+        public async Task<ActionResult<ProductDetailsDto>> GetProduct(int id)
         {
             var product = await _context
                                     .Products
@@ -52,14 +52,14 @@ namespace MB.KFC.WebApi.Controllers
                 return NotFound();
             }
 
-            var productDto = _mapper.Map<ProductDto>(product);
+            var productDto = _mapper.Map<ProductDetailsDto>(product);
 
 
             return productDto;
         }
 
         [HttpPost]
-        public async Task<ActionResult<Product>> CreateProduct(ProductAddEditDto productDto)
+        public async Task<ActionResult<Product>> CreateProduct(ProductDto productDto)
         {
             var product = _mapper.Map<Product>(productDto);
 
@@ -71,7 +71,7 @@ namespace MB.KFC.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditProduct(int id, ProductAddEditDto productDto)
+        public async Task<IActionResult> EditProduct(int id, ProductDto productDto)
         {
             if (id != productDto.Id)
             {

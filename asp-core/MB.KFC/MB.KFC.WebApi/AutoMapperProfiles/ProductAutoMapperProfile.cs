@@ -8,8 +8,9 @@ namespace MB.KFC.WebApi.AutoMapperProfiles
     {
         public ProductAutoMapperProfile()
         {
-            CreateMap<Product, ProductDto>();
-            CreateMap<Product, ProductAddEditDto>().ReverseMap();
+            CreateMap<Product, ProductListDto>();
+            CreateMap<Product, ProductDetailsDto>();
+            CreateMap<Product, ProductDto>().ReverseMap();
         }
     }
 }
