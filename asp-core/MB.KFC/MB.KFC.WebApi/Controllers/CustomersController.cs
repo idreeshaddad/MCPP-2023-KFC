@@ -59,17 +59,18 @@ namespace MB.KFC.WebApi.Controllers
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
 
-            return Ok(new { customerId = customer.Id });
+            return Ok();
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditCustomer(int id, Customer customer)
+        public async Task<IActionResult> EditCustomer(int id, CustomerDto customerDto)
         {
-            if (id != customer.Id)
+            if (id != customerDto.Id)
             {
                 return BadRequest();
             }
 
+            var customer = _mapper.Map<Customer>(customerDto);
             _context.Entry(customer).State = EntityState.Modified;
 
             try
@@ -94,11 +95,8 @@ namespace MB.KFC.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
-            if (_context.Customers == null)
-            {
-                return NotFound();
-            }
             var customer = await _context.Customers.FindAsync(id);
+
             if (customer == null)
             {
                 return NotFound();
