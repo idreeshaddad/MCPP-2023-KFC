@@ -7,6 +7,6 @@
         public string Note { get; set; }
         public DateTime OrderDate { get; set; }
 
-        public int CustomerFullName { get; set; }
+        public string CustomerFullName { get; set; }
     }
 }

@@ -59,18 +59,36 @@ namespace MB.KFC.WebApi.Controllers
             return orderDto;
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(int id, Order order)
+        [HttpPost]
+        public async Task<IActionResult> CreateOrder(OrderDto orderDto)
         {
-            if (id != order.Id)
+            var order = _mapper.Map<Order>(orderDto);
+
+            await AddProductsToOrder(orderDto.ProductIds, order);
+
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditOrder(int id, OrderDto orderDto)
+        {
+            if (id != orderDto.Id)
             {
                 return BadRequest();
             }
+
+            var order = _mapper.Map<Order>(orderDto);
 
             _context.Entry(order).State = EntityState.Modified;
 
             try
             {
+                await _context.SaveChangesAsync();
+
+                await UpdateOrderProducts(orderDto.ProductIds, order.Id);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -86,19 +104,6 @@ namespace MB.KFC.WebApi.Controllers
             }
 
             return NoContent();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
-        {
-            if (_context.Orders == null)
-            {
-                return Problem("Entity set 'KfcDbContext.Orders'  is null.");
-            }
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetOrder", new { id = order.Id }, order);
         }
 
         [HttpDelete("{id}")]
@@ -127,7 +132,35 @@ namespace MB.KFC.WebApi.Controllers
         private bool OrderExists(int id)
         {
             return (_context.Orders?.Any(e => e.Id == id)).GetValueOrDefault();
-        } 
+        }
+
+        private async Task AddProductsToOrder(List<int> productIds, Order order)
+        {
+            var products = await _context
+                                .Products
+                                .Where(p => productIds.Contains(p.Id))
+                                .ToListAsync();
+
+            order.Products.AddRange(products);
+        }
+
+        private async Task UpdateOrderProducts(List<int> productIds, int orderId)
+        {
+            var order = await _context
+                            .Orders
+                            .Include(o => o.Products)
+                            .Where(o => o.Id == orderId)
+                            .SingleAsync();
+
+            order.Products.Clear();
+
+            var products = await _context
+                                .Products
+                                .Where(p => productIds.Contains(p.Id))
+                                .ToListAsync();
+
+            order.Products.AddRange(products);
+        }
 
         #endregion
     }

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using MB.KFC.Dtos.Orders;
+using MB.KFC.Entities;
 
 namespace MB.KFC.WebApi.AutoMapperProfiles
 {
@@ -6,7 +8,10 @@ namespace MB.KFC.WebApi.AutoMapperProfiles
     {
         public OrderAutoMapperProfile()
         {
-            
+            CreateMap<Order, OrderListDto>();
+            CreateMap<Order, OrderDetailsDto>();
+            CreateMap<Order, OrderDto>().ReverseMap();
+
         }
     }
 }

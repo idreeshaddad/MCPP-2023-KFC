@@ -9,7 +9,7 @@ namespace MB.KFC.Dtos.Orders
         public string Note { get; set; }
         public DateTime OrderDate { get; set; }
 
-        public int CustomerFullName { get; set; }
+        public string CustomerFullName { get; set; }
 
         public List<ProductListDto> Products { get; set; }
     }
