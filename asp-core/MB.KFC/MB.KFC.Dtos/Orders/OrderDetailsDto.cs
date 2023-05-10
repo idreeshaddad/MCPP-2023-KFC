@@ -5,7 +5,7 @@ namespace MB.KFC.Dtos.Orders
     public class OrderDetailsDto
     {
         public int Id { get; set; }
-        public double Price { get; set; }
+        public double TotalPrice { get; set; }
         public string Note { get; set; }
         public DateTime OrderDate { get; set; }
 

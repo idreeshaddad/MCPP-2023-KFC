@@ -1,4 +1,6 @@
-﻿namespace MB.KFC.Dtos.Customers
+﻿using MB.KFC.Dtos.Orders;
+
+namespace MB.KFC.Dtos.Customers
 {
     public class CustomerDetailsDto
     {
@@ -10,5 +12,6 @@
         public string FullName { get; set; }
 
         //TODO List<ProductDto>
+        public List<OrderListDto> Orders { get; set; }
     }
 }

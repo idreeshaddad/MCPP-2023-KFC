@@ -64,8 +64,11 @@ namespace MB.KFC.WebApi.Controllers
         {
             var order = _mapper.Map<Order>(orderDto);
 
-            await AddProductsToOrder(orderDto.ProductIds, order);
+            await UpdateOrderProducts(orderDto.ProductIds, order);
 
+            order.OrderDate = DateTime.Now;
+            order.TotalPrice = GetOrderTotalPrice(order);
+            
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
@@ -80,15 +83,16 @@ namespace MB.KFC.WebApi.Controllers
                 return BadRequest();
             }
 
-            var order = _mapper.Map<Order>(orderDto);
+            var order = await GetOrderWithProducts(id);
 
-            _context.Entry(order).State = EntityState.Modified;
+            _mapper.Map(orderDto, order); // Patch (((NOT))) regular map that we are used to.
 
             try
             {
-                await _context.SaveChangesAsync();
+                await UpdateOrderProducts(orderDto.ProductIds, order);
 
-                await UpdateOrderProducts(orderDto.ProductIds, order.Id);
+                order.TotalPrice = GetOrderTotalPrice(order);
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -134,24 +138,17 @@ namespace MB.KFC.WebApi.Controllers
             return (_context.Orders?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        private async Task AddProductsToOrder(List<int> productIds, Order order)
+        private async Task<Order> GetOrderWithProducts(int orderId)
         {
-            var products = await _context
-                                .Products
-                                .Where(p => productIds.Contains(p.Id))
-                                .ToListAsync();
-
-            order.Products.AddRange(products);
-        }
-
-        private async Task UpdateOrderProducts(List<int> productIds, int orderId)
-        {
-            var order = await _context
+            return await _context
                             .Orders
                             .Include(o => o.Products)
                             .Where(o => o.Id == orderId)
                             .SingleAsync();
+        }
 
+        private async Task UpdateOrderProducts(List<int> productIds, Order order)
+        {
             order.Products.Clear();
 
             var products = await _context
@@ -160,6 +157,11 @@ namespace MB.KFC.WebApi.Controllers
                                 .ToListAsync();
 
             order.Products.AddRange(products);
+        }
+
+        private double GetOrderTotalPrice(Order order)
+        {
+            return order.Products.Sum(p => p.Price);
         }
 
         #endregion

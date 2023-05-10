@@ -39,7 +39,10 @@ namespace MB.KFC.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CustomerDetailsDto>> GetCustomer(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = await _context
+                                    .Customers
+                                    .Include(c => c.Orders)
+                                    .SingleOrDefaultAsync(c => c.Id == id);
 
             if (customer == null)
             {
