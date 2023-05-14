@@ -22,7 +22,19 @@ namespace MB.KFC.WebApi
             builder.Services.AddDbContext<KfcDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection")));
 
+            // CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: "KfcCors",
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("http://localhost:4200");
+                                  });
+            });
+
             var app = builder.Build();
+
+            app.UseCors("KfcCors");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
