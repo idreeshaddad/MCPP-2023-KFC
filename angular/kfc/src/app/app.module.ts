@@ -6,12 +6,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CategoryComponent } from './category/category.component';
 import { HomeComponent } from './home/home.component';
+import { AddEditCategoryComponent } from './category/add-edit-category/add-edit-category.component';
+import { CategoryDetailsComponent } from './category/category-details/category-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CategoryComponent,
-    HomeComponent
+    HomeComponent,
+    AddEditCategoryComponent,
+    CategoryDetailsComponent
   ],
   imports: [
     BrowserModule,

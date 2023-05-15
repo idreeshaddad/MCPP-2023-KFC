@@ -1,0 +1,21 @@
+<div class="container my-3">
+  <h2>Category: <span class="text-primary">{{ category.name }}</span></h2>
+
+  <hr>
+
+  <div class="row mt-2">
+    <div class="col-md-2">Id</div>
+    <div class="col-md-4">{{ category.id}}</div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-2">Name</div>
+    <div class="col-md-4">{{ category.name}}</div>
+  </div>
+
+  <div class="mt-5">
+    <button class="btn btn-secondary" [routerLink]="[ '/category' ]">Back</button>
+    <button class="btn btn-primary ms-2" [routerLink]="[ '/category/edit', category.id ]">Edit</button>
+  </div>
+
+</div>
