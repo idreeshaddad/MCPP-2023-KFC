@@ -11,7 +11,7 @@ import { CategoryService } from '../services/category.service';
 export class CategoryComponent implements OnInit {
 
   categoryDS: Category[] = [];
-  categoryColumns: string[] = ['id', 'name'];
+  categoryColumns: string[] = ['id', 'name', 'actions'];
 
   constructor(private catSvc: CategoryService) { }
 
