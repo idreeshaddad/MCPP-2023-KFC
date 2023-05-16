@@ -10,7 +10,8 @@ import { CategoryService } from '../services/category.service';
 })
 export class CategoryComponent implements OnInit {
 
-  categories: Category[] = [];
+  categoryDS: Category[] = [];
+  categoryColumns: string[] = ['id', 'name'];
 
   constructor(private catSvc: CategoryService) { }
 
@@ -26,7 +27,7 @@ export class CategoryComponent implements OnInit {
 
     this.catSvc.getCategories().subscribe({
       next: (categoriesFromApi: Category[]) => {
-        this.categories = categoriesFromApi;
+        this.categoryDS = categoriesFromApi;
       },
       error: (err: HttpErrorResponse) => {
         console.error(err.message);

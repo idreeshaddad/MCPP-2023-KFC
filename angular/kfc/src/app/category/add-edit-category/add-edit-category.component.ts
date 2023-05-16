@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PageMode } from 'src/app/enum/pageMode.enum';
 import { Category } from 'src/app/models/category.model';
@@ -12,15 +13,22 @@ import { CategoryService } from 'src/app/services/category.service';
 })
 export class AddEditCategoryComponent implements OnInit {
 
+  categoryForm!: FormGroup;
+
   categoryId!: number;
   category!: Category;
   pageMode: PageMode = PageMode.add;
 
   pageModeEnum = PageMode;
 
-  constructor(private catSvc: CategoryService, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private fb: FormBuilder,
+    private catSvc: CategoryService,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+
+    this.buildForm();
 
     this.getCategoryIdFromUrl();
 
@@ -31,6 +39,14 @@ export class AddEditCategoryComponent implements OnInit {
   }
 
   //#region Private Functions
+
+  private buildForm(): void {
+
+    this.categoryForm = this.fb.group({
+      id: [0],
+      name: ['', Validators.required]
+    });
+  }
 
   private getCategoryIdFromUrl(): void {
 
