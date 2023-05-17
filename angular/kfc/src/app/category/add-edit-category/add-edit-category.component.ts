@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/enum/pageMode.enum';
 import { Category } from 'src/app/models/category.model';
@@ -25,7 +26,8 @@ export class AddEditCategoryComponent implements OnInit {
     private fb: FormBuilder,
     private catSvc: CategoryService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -89,11 +91,12 @@ export class AddEditCategoryComponent implements OnInit {
 
     this.catSvc.createCategory(this.categoryForm.value).subscribe({
       next: (categoryFromApi: Category) => {
-        // TODO snack bar notification: Categoty has been created Successfully
+        // TODO dismiss snack after 1000 miliseconds
+        this.snackBar.open("Categoty has been created Successfully", "Ok");
         this.router.navigate(['category']);
       },
       error: (err: HttpErrorResponse) => {
-        // TODO snack the error
+        this.snackBar.open("Categoty cannot be created");
       }
     });
   }
