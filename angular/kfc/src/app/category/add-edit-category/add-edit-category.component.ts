@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/enum/pageMode.enum';
 import { Category } from 'src/app/models/category.model';
 import { CategoryService } from 'src/app/services/category.service';
@@ -24,7 +24,8 @@ export class AddEditCategoryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private catSvc: CategoryService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
 
@@ -35,6 +36,21 @@ export class AddEditCategoryComponent implements OnInit {
     if (this.pageMode == PageMode.edit) {
 
       this.loadCategory();
+    }
+
+  }
+
+  submitForm() {
+
+    if (this.categoryForm.valid) {
+
+      if (this.pageMode == PageMode.add) {
+
+        this.createCategory();
+      }
+      else {
+        //this.editCategory();
+      }
     }
   }
 
@@ -65,6 +81,19 @@ export class AddEditCategoryComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => {
         console.error(err.error);
+      }
+    });
+  }
+
+  private createCategory(): void {
+
+    this.catSvc.createCategory(this.categoryForm.value).subscribe({
+      next: (categoryFromApi: Category) => {
+        // TODO snack bar notification: Categoty has been created Successfully
+        this.router.navigate(['category']);
+      },
+      error: (err: HttpErrorResponse) => {
+        // TODO snack the error
       }
     });
   }

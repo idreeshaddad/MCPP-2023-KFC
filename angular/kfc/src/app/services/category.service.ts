@@ -21,4 +21,9 @@ export class CategoryService {
 
     return this.http.get<Category>(`${this.apiURL}/GetCategory/${id}`);
   }
+
+  createCategory(category: Category): Observable<Category> {
+
+    return this.http.post<Category>(`${this.apiURL}/CreateCategory`, category);
+  }
 }
