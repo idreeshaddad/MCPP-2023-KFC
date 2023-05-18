@@ -11,6 +11,7 @@ import { CategoryDetailsComponent } from './category/category-details/category-d
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,14 @@ import { SharedModule } from './shared/shared.module';
     BrowserAnimationsModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+        duration: 2500,
+        panelClass: ['bg-dark', 'text-light']
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -51,7 +51,7 @@ export class AddEditCategoryComponent implements OnInit {
         this.createCategory();
       }
       else {
-        //this.editCategory();
+        this.editCategory();
       }
     }
   }
@@ -79,11 +79,21 @@ export class AddEditCategoryComponent implements OnInit {
 
     this.catSvc.getCategory(this.categoryId).subscribe({
       next: (categoryFromApi: Category) => {
+
         this.category = categoryFromApi;
+        this.patchCategoryForm();
+
       },
       error: (err: HttpErrorResponse) => {
         console.error(err.error);
       }
+    });
+  }
+  private patchCategoryForm() {
+
+    this.categoryForm.patchValue({
+      id: this.category.id,
+      name: this.category.name
     });
   }
 
@@ -91,12 +101,24 @@ export class AddEditCategoryComponent implements OnInit {
 
     this.catSvc.createCategory(this.categoryForm.value).subscribe({
       next: (categoryFromApi: Category) => {
-        // TODO dismiss snack after 1000 miliseconds
-        this.snackBar.open("Categoty has been created Successfully", "Ok");
+        this.snackBar.open("Category has been created Successfully");
         this.router.navigate(['category']);
       },
       error: (err: HttpErrorResponse) => {
-        this.snackBar.open("Categoty cannot be created");
+        this.snackBar.open("Category cannot be created");
+      }
+    });
+  }
+
+  private editCategory(): void {
+
+    this.catSvc.editCategory(this.categoryForm.value).subscribe({
+      next: (categoryFromApi: Category) => {
+        this.snackBar.open("Category has been updated Successfully");
+        this.router.navigate(['category']);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.snackBar.open("Category cannot be created");
       }
     });
   }
