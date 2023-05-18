@@ -50,7 +50,7 @@
         <a class="ms-3" [routerLink]="['/category/details', category.id]" title="Details">
           <i class="fa-solid fa-circle-info text-info"></i>
         </a>
-        <a class="ms-3" [routerLink]="['/category/delete', category.id]" title="Delete">
+        <a class="ms-3 pointer" title="Delete" (click)="openDeleteDialog()">
           <i class="fa-solid fa-trash text-danger"></i>
         </a>
       </td>
