@@ -60,7 +60,7 @@ export class CategoryComponent implements OnInit {
         this.categoryDS = categoriesFromApi;
       },
       error: (err: HttpErrorResponse) => {
-        console.error(err.message);
+        this.snackBar.open(err.message);
       }
     });
   }

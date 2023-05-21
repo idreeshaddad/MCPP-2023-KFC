@@ -1,0 +1,49 @@
+<div class="container my-3">
+  <h2>Categories</h2>
+  <button mat-raised-button color="primary" [routerLink]="[ '/customer/add' ]">Add New Customer</button>
+
+  <table mat-table [dataSource]="customerDS" class="mat-elevation-z2 w-100 mt-3">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let customer"> {{customer.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef> Full Name </th>
+      <td mat-cell *matCellDef="let customer"> {{customer.fullName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+      <td mat-cell *matCellDef="let customer"> {{customer.phoneNumber}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+      <th mat-header-cell *matHeaderCellDef> Age </th>
+      <td mat-cell *matCellDef="let customer"> {{customer.age}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let customer">
+        <a [routerLink]="['/customer/edit', customer.id]" title="Edit">
+          <i class="fa-solid fa-marker"></i>
+        </a>
+        <a class="ms-3" [routerLink]="['/customer/details', customer.id]" title="Details">
+          <i class="fa-solid fa-circle-info text-info"></i>
+        </a>
+        <!-- <a class="ms-3 pointer" title="Delete" (click)="openDeleteDialog(customer)">
+          <i class="fa-solid fa-trash text-danger"></i>
+        </a> -->
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="customerColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: customerColumns;"></tr>
+  </table>
+
+
+
+</div>

@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { DeleteCategoryComponent } from './category/delete-category/delete-category.component';
+import { CustomerComponent } from './customer/customer.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DeleteCategoryComponent } from './category/delete-category/delete-categ
     HomeComponent,
     AddEditCategoryComponent,
     CategoryDetailsComponent,
-    DeleteCategoryComponent
+    DeleteCategoryComponent,
+    CustomerComponent
   ],
   imports: [
     BrowserModule,
