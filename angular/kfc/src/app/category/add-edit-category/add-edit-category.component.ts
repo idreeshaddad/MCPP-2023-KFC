@@ -85,7 +85,7 @@ export class AddEditCategoryComponent implements OnInit {
 
       },
       error: (err: HttpErrorResponse) => {
-        console.error(err.error);
+        this.snackBar.open(err.message);
       }
     });
   }
@@ -105,7 +105,7 @@ export class AddEditCategoryComponent implements OnInit {
         this.router.navigate(['category']);
       },
       error: (err: HttpErrorResponse) => {
-        this.snackBar.open("Category cannot be created");
+        this.snackBar.open(err.message);
       }
     });
   }
@@ -118,7 +118,7 @@ export class AddEditCategoryComponent implements OnInit {
         this.router.navigate(['category']);
       },
       error: (err: HttpErrorResponse) => {
-        this.snackBar.open("Category cannot be created");
+        this.snackBar.open(err.message);
       }
     });
   }

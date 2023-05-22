@@ -3,16 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddEditCategoryComponent } from './category/add-edit-category/add-edit-category.component';
 import { CategoryDetailsComponent } from './category/category-details/category-details.component';
 import { CategoryComponent } from './category/category.component';
+import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
+import { CustomerDetailsComponent } from './customer/customer-details/customer-details.component';
 import { CustomerComponent } from './customer/customer.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, },
+
   { path: 'category', component: CategoryComponent, },
   { path: 'category/details/:id', component: CategoryDetailsComponent, },
   { path: 'category/add', component: AddEditCategoryComponent, },
   { path: 'category/edit/:id', component: AddEditCategoryComponent, },
+
   { path: 'customer', component: CustomerComponent, },
+  { path: 'customer/details/:id', component: CustomerDetailsComponent, },
+  { path: 'customer/add', component: AddEditCustomerComponent, },
+  { path: 'customer/edit/:id', component: AddEditCustomerComponent, },
 
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];

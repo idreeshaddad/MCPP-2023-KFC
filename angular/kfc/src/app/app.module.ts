@@ -14,16 +14,21 @@ import { SharedModule } from './shared/shared.module';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { DeleteCategoryComponent } from './category/delete-category/delete-category.component';
 import { CustomerComponent } from './customer/customer.component';
+import { CustomerDetailsComponent } from './customer/customer-details/customer-details.component';
+import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CategoryComponent,
     HomeComponent,
+    CategoryComponent,
     AddEditCategoryComponent,
     CategoryDetailsComponent,
     DeleteCategoryComponent,
-    CustomerComponent
+    CustomerComponent,
+    CustomerDetailsComponent,
+    AddEditCustomerComponent
   ],
   imports: [
     BrowserModule,
@@ -38,8 +43,9 @@ import { CustomerComponent } from './customer/customer.component';
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
         duration: 2500,
         panelClass: ['bg-dark', 'text-light']
-      }
-    }
+      },
+    },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
   ],
   bootstrap: [AppComponent]
 })

@@ -65,6 +65,23 @@ namespace MB.KFC.WebApi.Controllers
             return Ok();
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CustomerDto>> GetCustomerForEdit(int id)
+        {
+            var customer = await _context
+                                    .Customers
+                                    .SingleOrDefaultAsync(c => c.Id == id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            var cusDto = _mapper.Map<CustomerDto>(customer);
+
+            return cusDto;
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> EditCustomer(int id, CustomerDto customerDto)
         {

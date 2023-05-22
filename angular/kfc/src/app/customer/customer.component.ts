@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CustomerList } from '../models/customer.model';
+import { CustomerList } from '../models/customers/customerList.model';
 import { CustomerService } from '../services/customer.service';
 
 @Component({

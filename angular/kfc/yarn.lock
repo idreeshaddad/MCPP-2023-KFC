@@ -217,7 +217,14 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/material@^13.0.0":
+"@angular/material-moment-adapter@^13.0.0":
+  "integrity" "sha512-tKFF9LVW+BOnSw8eB3nE75bHx1RekF/8Nvl25x4KKLJdndOQsKhOHaksRpF97cT3rHmcUqRRcVya4dIDqcVpIQ=="
+  "resolved" "https://registry.npmjs.org/@angular/material-moment-adapter/-/material-moment-adapter-13.0.0.tgz"
+  "version" "13.0.0"
+  dependencies:
+    "tslib" "^2.3.0"
+
+"@angular/material@^13.0.0", "@angular/material@13.0.0":
   "integrity" "sha512-v9TB0LHRweSwafPM6BP+pPGi398jlH5SUIqRNfR8Fbg9nujm/mvDNvxFDOJMRLrob69Fqztt7Uw+sK2FSzkjrA=="
   "resolved" "https://registry.npmjs.org/@angular/material/-/material-13.0.0.tgz"
   "version" "13.0.0"
@@ -4323,7 +4330,7 @@
   "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
   "version" "1.0.4"
 
-"moment@^2.19.3", "moment@^2.29.4":
+"moment@^2.18.1", "moment@^2.19.3", "moment@^2.29.4":
   "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
   "version" "2.29.4"
