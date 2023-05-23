@@ -43,11 +43,12 @@
         </div>
 
         <div>
-          <mat-form-field class="w-100">
+          <mat-form-field appearance="fill" class="w-100">
             <mat-label>Date of Birth</mat-label>
             <input matInput [matDatepicker]="dobPicker" formControlName="dateOfBirth">
-            <mat-datepicker-toggle matIconSuffix [for]="dobPicker"></mat-datepicker-toggle>
+            <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
             <mat-datepicker #dobPicker></mat-datepicker>
+            <mat-error>Date of birth is required.</mat-error>
           </mat-form-field>
 
         </div>

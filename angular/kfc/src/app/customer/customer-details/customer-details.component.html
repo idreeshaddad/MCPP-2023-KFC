@@ -30,6 +30,7 @@
 
   <hr>
 
+  <h2 class="">Orders</h2>
 
   <table mat-table [dataSource]="orderDS" class="mat-elevation-z2 w-100 mt-3">
 
@@ -45,7 +46,12 @@
 
     <ng-container matColumnDef="orderDate">
       <th mat-header-cell *matHeaderCellDef> Order Date </th>
-      <td mat-cell *matCellDef="let order"> {{order.orderDate | date: 'short'}} </td>
+      <td mat-cell *matCellDef="let order">
+        {{order.orderDate | date: 'MMM d, y, h:mm a'}}
+        <!-- <span class="text-success">{{order.orderDate | date: 'EEE'}} </span>
+        <span class="text-primary">{{order.orderDate | date: 'dd/MMM'}}</span> -
+        <span class="text-danger">{{order.orderDate | date: 'hh:mm a'}}</span> -->
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="note">

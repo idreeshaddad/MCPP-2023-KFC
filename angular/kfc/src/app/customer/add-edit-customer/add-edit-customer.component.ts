@@ -5,7 +5,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/enum/pageMode.enum';
 import { Customer } from 'src/app/models/customers/customer.model';
-import { CustomerDetails } from 'src/app/models/customers/customerDetails.model';
 import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
@@ -92,10 +91,13 @@ export class AddEditCustomerComponent implements OnInit {
   }
   private patchCustomerForm() {
 
-    // this.customerForm.patchValue({
-    //   id: this.customer.id,
-    //   name: this.customer.name
-    // });
+    this.customerForm.patchValue({
+      id: this.customer.id,
+      firstName: this.customer.firstName,
+      lastName: this.customer.lastName,
+      phoneNumber: this.customer.phoneNumber,
+      dateOfBirth: this.customer.dateOfBirth,
+    });
   }
 
   private createCustomer(): void {
