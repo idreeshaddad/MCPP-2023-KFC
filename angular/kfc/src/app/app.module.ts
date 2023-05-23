@@ -18,6 +18,7 @@ import { CustomerDetailsComponent } from './customer/customer-details/customer-d
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DeleteCustomerComponent } from './customer/delete-customer/delete-customer.component';
+import { ProductComponent } from './product/product.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { DeleteCustomerComponent } from './customer/delete-customer/delete-custo
     CustomerComponent,
     CustomerDetailsComponent,
     AddEditCustomerComponent,
-    DeleteCustomerComponent
+    DeleteCustomerComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,

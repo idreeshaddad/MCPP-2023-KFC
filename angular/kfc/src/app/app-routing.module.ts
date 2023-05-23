@@ -7,6 +7,7 @@ import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-
 import { CustomerDetailsComponent } from './customer/customer-details/customer-details.component';
 import { CustomerComponent } from './customer/customer.component';
 import { HomeComponent } from './home/home.component';
+import { ProductComponent } from './product/product.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, },
@@ -20,6 +21,8 @@ const routes: Routes = [
   { path: 'customer/details/:id', component: CustomerDetailsComponent, },
   { path: 'customer/add', component: AddEditCustomerComponent, },
   { path: 'customer/edit/:id', component: AddEditCustomerComponent, },
+
+  { path: 'product', component: ProductComponent },
 
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
