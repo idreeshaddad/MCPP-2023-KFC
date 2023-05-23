@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomerList } from '../models/customers/customerList.model';
 import { CustomerService } from '../services/customer.service';
+import { DeleteCustomerComponent } from './delete-customer/delete-customer.component';
 
 @Component({
   selector: 'app-customer',
@@ -23,6 +24,30 @@ export class CustomerComponent implements OnInit {
   ngOnInit(): void {
 
     this.loadCustomers();
+  }
+
+  openDeleteDialog(customer: CustomerList) {
+
+    const dialogRef = this.dialog.open(DeleteCustomerComponent, {
+      data: customer
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (result: boolean) => {
+
+        if (result) {
+          this.customerSvc.deleteCustomer(customer.id).subscribe({
+            next: () => {
+              this.loadCustomers();
+            },
+            error: (err: HttpErrorResponse) => {
+              this.snackBar.open(`${customer.fullName} cannot be deleted. ${err.message}`);
+            }
+          });
+        }
+
+      }
+    });
   }
 
   //#region Private Functions
