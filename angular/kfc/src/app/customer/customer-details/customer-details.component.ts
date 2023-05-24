@@ -13,7 +13,7 @@ import { CustomerService } from 'src/app/services/customer.service';
 export class CustomerDetailsComponent implements OnInit {
 
   customerId!: number;
-  customer!: CustomerDetails;
+  customer?: CustomerDetails;
 
   orderDS: OrderList[] = [];
   orderColumns: string[] = ['id', 'totalPrice', 'note', 'orderDate', 'actions'];

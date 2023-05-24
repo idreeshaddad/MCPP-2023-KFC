@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductList } from '../models/products/productList.model';
 import { ProductService } from '../services/product.service';
+import { DeleteProductComponent } from './delete-product/delete-product.component';
 
 @Component({
   selector: 'app-product',
@@ -13,7 +14,7 @@ import { ProductService } from '../services/product.service';
 export class ProductComponent implements OnInit {
 
   productDS: ProductList[] = [];
-  productColumns: string[] = ['id', 'name', 'productName', 'actions'];
+  productColumns: string[] = ['id', 'name', 'categoryName', 'actions'];
 
   constructor(
     private productSvc: ProductService,
@@ -23,6 +24,30 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
 
     this.loadProducts();
+  }
+
+  openDeleteDialog(product: ProductList) {
+
+    const dialogRef = this.dialog.open(DeleteProductComponent, {
+      data: product
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (result: boolean) => {
+
+        if (result) {
+          this.productSvc.deleteProduct(product.id).subscribe({
+            next: () => {
+              this.loadProducts();
+            },
+            error: (err: HttpErrorResponse) => {
+              this.snackBar.open(`${product.name} cannot be deleted. ${err.message}`);
+            }
+          });
+        }
+
+      }
+    });
   }
 
   //#region Private Functions

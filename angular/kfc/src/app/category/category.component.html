@@ -2,33 +2,6 @@
   <h2>Categories</h2>
   <button mat-raised-button color="primary" [routerLink]="[ '/category/add' ]">Add New Category</button>
 
-  <!-- <table class="table table-stripped table-hover mt-2">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let category of categories">
-        <td>{{ category.id }}</td>
-        <td>{{ category.name }}</td>
-        <td>
-          <a [routerLink]="['/category/edit', category.id]" title="Edit">
-            <i class="fa-solid fa-marker"></i>
-          </a>
-          <a class="ms-3" [routerLink]="['/category/details', category.id]" title="Details">
-            <i class="fa-solid fa-circle-info text-info"></i>
-          </a>
-          <a class="ms-3" [routerLink]="['/category/delete', category.id]" title="Delete">
-            <i class="fa-solid fa-trash text-danger"></i>
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table> -->
-
   <table mat-table [dataSource]="categoryDS" class="mat-elevation-z2 w-100 mt-3">
 
     <ng-container matColumnDef="id">
