@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Category } from '../models/category.model';
+import { Category } from '../models/categories/category.model';
 import { CategoryService } from '../services/category.service';
 import { DeleteCategoryComponent } from './delete-category/delete-category.component';
 

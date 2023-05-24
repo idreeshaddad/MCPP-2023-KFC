@@ -11,6 +11,6 @@ namespace MB.KFC.Dtos.Orders
 
         public string CustomerFullName { get; set; }
 
-        public List<ProductListDto> Products { get; set; }
+        public List<ProductDto> Products { get; set; }
     }
 }

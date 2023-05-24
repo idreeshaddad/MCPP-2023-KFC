@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/enum/pageMode.enum';
-import { Category } from 'src/app/models/category.model';
+import { Category } from 'src/app/models/categories/category.model';
 import { CategoryService } from 'src/app/services/category.service';
 
 @Component({

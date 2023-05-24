@@ -4,6 +4,7 @@ using MB.KFC.EfCore;
 using MB.KFC.Entities;
 using AutoMapper;
 using MB.KFC.Dtos.Products;
+using MB.KFC.Dtos.Lookups;
 
 namespace MB.KFC.WebApi.Controllers
 {
@@ -27,20 +28,20 @@ namespace MB.KFC.WebApi.Controllers
         #region Actions
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductListDto>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
             var products = await _context
                                     .Products
                                     .Include(p => p.Category)
                                     .ToListAsync();
 
-            var productDtos = _mapper.Map<List<ProductListDto>>(products);
+            var productDtos = _mapper.Map<List<ProductDto>>(products);
 
             return productDtos;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDetailsDto>> GetProduct(int id)
+        public async Task<ActionResult<ProductDto>> GetProduct(int id)
         {
             var product = await _context
                                     .Products
@@ -52,22 +53,24 @@ namespace MB.KFC.WebApi.Controllers
                 return NotFound();
             }
 
-            var productDto = _mapper.Map<ProductDetailsDto>(product);
+            var productDto = _mapper.Map<ProductDto>(product);
 
 
             return productDto;
         }
 
         [HttpPost]
-        public async Task<ActionResult<Product>> CreateProduct(ProductDto productDto)
+        public async Task<IActionResult> CreateProduct(ProductDto productDto)
         {
             var product = _mapper.Map<Product>(productDto);
+
+            product.Category = await _context.Categories.Where(c => c.Id == productDto.CategoryId).SingleAsync();
 
             _context.Products.Add(product);
 
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            return NoContent();
         }
 
         [HttpPut("{id}")]
@@ -115,7 +118,7 @@ namespace MB.KFC.WebApi.Controllers
 
             return NoContent();
         }
-
+        
         #endregion
 
         #region Pivate Methods

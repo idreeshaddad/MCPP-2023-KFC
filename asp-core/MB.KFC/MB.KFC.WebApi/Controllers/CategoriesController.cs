@@ -5,6 +5,7 @@ using MB.KFC.Entities;
 using AutoMapper;
 using MB.KFC.Dtos.Categories;
 using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
+using MB.KFC.Dtos.Lookups;
 
 namespace MB.KFC.WebApi.Controllers
 {
@@ -114,6 +115,16 @@ namespace MB.KFC.WebApi.Controllers
 
             return NoContent();
         }
+
+        [HttpGet]
+        public async Task<ActionResult<List<LookupDto>>> GetCategoriesLookup()
+        {
+            return await _context
+                            .Categories
+                            .Select(cat => new LookupDto { Id = cat.Id , Name = cat.Name  })
+                            .ToListAsync();
+        }
+
 
         #endregion
 

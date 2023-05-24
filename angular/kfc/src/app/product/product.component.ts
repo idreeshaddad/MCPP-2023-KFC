@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ProductList } from '../models/products/productList.model';
+import { Product } from '../models/products/product.model';
 import { ProductService } from '../services/product.service';
 import { DeleteProductComponent } from './delete-product/delete-product.component';
 
@@ -13,7 +13,7 @@ import { DeleteProductComponent } from './delete-product/delete-product.componen
 })
 export class ProductComponent implements OnInit {
 
-  productDS: ProductList[] = [];
+  productDS: Product[] = [];
   productColumns: string[] = ['id', 'name', 'categoryName', 'actions'];
 
   constructor(
@@ -26,7 +26,7 @@ export class ProductComponent implements OnInit {
     this.loadProducts();
   }
 
-  openDeleteDialog(product: ProductList) {
+  openDeleteDialog(product: Product) {
 
     const dialogRef = this.dialog.open(DeleteProductComponent, {
       data: product
@@ -55,7 +55,7 @@ export class ProductComponent implements OnInit {
   private loadProducts(): void {
 
     this.productSvc.getProducts().subscribe({
-      next: (productsFromApi: ProductList[]) => {
+      next: (productsFromApi: Product[]) => {
         this.productDS = productsFromApi;
       },
       error: (err: HttpErrorResponse) => {
