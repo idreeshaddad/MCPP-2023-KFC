@@ -1,1 +1,31 @@
-<p>product-details works!</p>
+<div class="container my-3">
+  <h2>Product: <span class="text-primary">{{ product?.name }}</span></h2>
+
+  <hr>
+
+  <div class="row mt-2">
+    <div class="col-md-2 fw-bold">Id</div>
+    <div class="col-md-4">{{ product?.id}}</div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-2 fw-bold">Name</div>
+    <div class="col-md-4">{{ product?.name}}</div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-2 fw-bold">Price</div>
+    <div class="col-md-4">{{ product?.price | currency}}</div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-2 fw-bold">Category</div>
+    <div class="col-md-4">{{ product?.categoryName}}</div>
+  </div>
+
+  <div class="mt-5">
+    <button class="btn btn-secondary" [routerLink]="[ '/product' ]">Back</button>
+    <button class="btn btn-primary ms-2" [routerLink]="[ '/product/edit', product?.id ]">Edit</button>
+  </div>
+
+</div>
