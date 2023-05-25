@@ -49,17 +49,27 @@ export class AddEditProductComponent implements OnInit {
 
   }
 
-  submitForm() {
+  create(): void {
 
     if (this.productForm.valid) {
+      this.createProduct();
+      this.router.navigate(['product']);
+    }
+  }
 
-      if (this.pageMode == PageMode.add) {
+  createAndAddMore(): void {
 
-        this.createProduct();
-      }
-      else {
-        this.editProduct();
-      }
+    if (this.productForm.valid) {
+      this.createProduct();
+      this.productForm.reset();
+    }
+  }
+
+  save(): void {
+
+    if (this.productForm.valid) {
+      this.saveProduct();
+      this.router.navigate(['product']);
     }
   }
 
@@ -123,7 +133,6 @@ export class AddEditProductComponent implements OnInit {
     this.productSvc.createProduct(this.productForm.value).subscribe({
       next: (productFromApi: Product) => {
         this.snackBar.open("Product has been created Successfully");
-        this.router.navigate(['product']);
       },
       error: (err: HttpErrorResponse) => {
         this.snackBar.open(err.message);
@@ -131,7 +140,7 @@ export class AddEditProductComponent implements OnInit {
     });
   }
 
-  private editProduct(): void {
+  private saveProduct(): void {
 
     this.productSvc.editProduct(this.productForm.value).subscribe({
       next: (productFromApi: Product) => {

@@ -12,7 +12,7 @@
 
   <hr>
 
-  <form [formGroup]="productForm" (ngSubmit)="submitForm()">
+  <form [formGroup]="productForm">
     <div class="row">
 
       <div class="col-md-6">
@@ -51,13 +51,20 @@
 
       <button mat-raised-button [routerLink]="['/product']">Cancel</button>
 
-      <button type="submit" mat-raised-button color="primary" class="ms-2">
-        <ng-container *ngIf="pageMode == pageModeEnum.add; else formSubmitButtonName">
+      <div *ngIf="pageMode == pageModeEnum.add" class="d-inline">
+        <button (click)="create()" type="button" mat-raised-button color="primary" class="ms-2">
           Create
-        </ng-container>
-        <ng-template #formSubmitButtonName>
-          Save
-        </ng-template>
+        </button>
+        <button (click)="createAndAddMore()" type="button" mat-raised-button color="primary" class="ms-2">
+          Create and Add More
+        </button>
+      </div>
+
+
+
+      <button *ngIf="pageMode == pageModeEnum.edit" (click)="save()" type="button" mat-raised-button color="primary"
+        class="ms-2">
+        Save
       </button>
 
     </div>

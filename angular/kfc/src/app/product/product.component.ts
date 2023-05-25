@@ -39,6 +39,7 @@ export class ProductComponent implements OnInit {
           this.productSvc.deleteProduct(product.id).subscribe({
             next: () => {
               this.loadProducts();
+              this.snackBar.open(`${product.name} has been deleted successfully`);
             },
             error: (err: HttpErrorResponse) => {
               this.snackBar.open(`${product.name} cannot be deleted. ${err.message}`);
