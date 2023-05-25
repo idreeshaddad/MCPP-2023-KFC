@@ -7,6 +7,7 @@ import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-
 import { CustomerDetailsComponent } from './customer/customer-details/customer-details.component';
 import { CustomerComponent } from './customer/customer.component';
 import { HomeComponent } from './home/home.component';
+import { OrderComponent } from './order/order.component';
 import { AddEditProductComponent } from './product/add-edit-product/add-edit-product.component';
 import { ProductDetailsComponent } from './product/product-details/product-details.component';
 import { ProductComponent } from './product/product.component';
@@ -28,6 +29,11 @@ const routes: Routes = [
   { path: 'product/details/:id', component: ProductDetailsComponent, },
   { path: 'product/add', component: AddEditProductComponent, },
   { path: 'product/edit/:id', component: AddEditProductComponent, },
+
+  { path: 'order', component: OrderComponent },
+  // { path: 'order/details/:id', component: OrderDetailsComponent, },
+  // { path: 'order/add', component: AddEditOrderComponent, },
+  // { path: 'order/edit/:id', component: AddEditOrderComponent, },
 
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];

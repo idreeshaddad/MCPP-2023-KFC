@@ -22,6 +22,7 @@ import { ProductComponent } from './product/product.component';
 import { DeleteProductComponent } from './product/delete-product/delete-product.component';
 import { AddEditProductComponent } from './product/add-edit-product/add-edit-product.component';
 import { ProductDetailsComponent } from './product/product-details/product-details.component';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ProductDetailsComponent } from './product/product-details/product-detai
     ProductComponent,
     DeleteProductComponent,
     AddEditProductComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
