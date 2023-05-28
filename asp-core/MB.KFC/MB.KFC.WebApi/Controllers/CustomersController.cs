@@ -4,6 +4,7 @@ using MB.KFC.EfCore;
 using MB.KFC.Entities;
 using AutoMapper;
 using MB.KFC.Dtos.Customers;
+using MB.KFC.Dtos.Lookups;
 
 namespace MB.KFC.WebApi.Controllers
 {
@@ -126,6 +127,15 @@ namespace MB.KFC.WebApi.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<LookupDto>>> GetCustomersLookup()
+        {
+            return await _context
+                        .Customers
+                        .Select(p => new LookupDto { Id = p.Id, Name = p.FullName })
+                        .ToListAsync();
         }
 
         #endregion

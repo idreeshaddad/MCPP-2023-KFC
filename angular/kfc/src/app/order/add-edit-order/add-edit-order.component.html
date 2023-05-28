@@ -1,0 +1,70 @@
+<div class="container my-3">
+  <h2>
+
+    <ng-container *ngIf="pageMode == pageModeEnum.add; else pageTitleElse">
+      <span>Add Order</span>
+    </ng-container>
+    <ng-template #pageTitleElse>
+      Edit Order <span class="text-danger">#{{ order.id }}</span>
+    </ng-template>
+
+  </h2>
+
+  <hr>
+
+  <form [formGroup]="orderForm" (ngSubmit)="submitForm()">
+    <div class="row">
+
+      <div class="col-md-6">
+
+        <div>
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Customer</mat-label>
+            <mat-select formControlName="customerId">
+              <mat-option *ngFor="let customer of customersLookup" [value]="customer.id">
+                {{customer.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Products</mat-label>
+            <mat-select formControlName="productIds" multiple>
+              <mat-option *ngFor="let lookup of productsLookup" [value]="lookup.id">
+                {{lookup.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Note</mat-label>
+            <input matInput placeholder="Note" formControlName="note">
+          </mat-form-field>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mt-3">
+
+      <button mat-raised-button [routerLink]="['/order']">Cancel</button>
+
+      <button type="submit" mat-raised-button color="primary" class="ms-2">
+        <ng-container *ngIf="pageMode == pageModeEnum.add; else formSubmitButtonName">
+          Create
+        </ng-container>
+        <ng-template #formSubmitButtonName>
+          Save
+        </ng-template>
+      </button>
+
+
+    </div>
+
+  </form>
+
+</div>

@@ -23,6 +23,9 @@ import { DeleteProductComponent } from './product/delete-product/delete-product.
 import { AddEditProductComponent } from './product/add-edit-product/add-edit-product.component';
 import { ProductDetailsComponent } from './product/product-details/product-details.component';
 import { OrderComponent } from './order/order.component';
+import { DeleteOrderComponent } from './order/delete-order/delete-order.component';
+import { OrderDetailsComponent } from './order/order-details/order-details.component';
+import { AddEditOrderComponent } from './order/add-edit-order/add-edit-order.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { OrderComponent } from './order/order.component';
     DeleteProductComponent,
     AddEditProductComponent,
     ProductDetailsComponent,
-    OrderComponent
+    OrderComponent,
+    DeleteOrderComponent,
+    OrderDetailsComponent,
+    AddEditOrderComponent
   ],
   imports: [
     BrowserModule,

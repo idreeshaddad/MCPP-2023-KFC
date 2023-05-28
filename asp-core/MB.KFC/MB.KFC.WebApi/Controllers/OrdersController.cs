@@ -4,6 +4,7 @@ using MB.KFC.EfCore;
 using MB.KFC.Entities;
 using AutoMapper;
 using MB.KFC.Dtos.Orders;
+using MB.KFC.Dtos.Lookups;
 
 namespace MB.KFC.WebApi.Controllers
 {

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Lookup } from '../models/Lookups/lookup.model';
 import { Product } from '../models/products/product.model';
 
 @Injectable({
@@ -35,5 +36,10 @@ export class ProductService {
   deleteProduct(productId: number): Observable<any> {
 
     return this.http.delete<Product>(`${this.apiURL}/DeleteProduct/${productId}`);
+  }
+
+  getProductsLookup(): Observable<Lookup[]> {
+
+    return this.http.get<Lookup[]>(`${this.apiURL}/GetProductsLookup`);
   }
 }

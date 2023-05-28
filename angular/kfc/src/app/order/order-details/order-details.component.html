@@ -1,0 +1,56 @@
+<div class="container my-3">
+  <h2>Order: <span class="text-primary">{{ order?.id }}</span></h2>
+
+  <hr>
+
+  <div class="row mt-2">
+    <div class="col-md-2 fw-bold">Number</div>
+    <div class="col-md-4">{{ order?.id}}</div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-2 fw-bold">Customer</div>
+    <div class="col-md-4">{{ order?.customerFullName}}</div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-2 fw-bold">Order Date</div>
+    <div class="col-md-4">{{ order?.orderDate | date: 'short'}}</div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-2 fw-bold">Price</div>
+    <div class="col-md-4">{{ order?.totalPrice | currency}}</div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-2 fw-bold">Note</div>
+    <div class="col-md-4">{{ order?.note }}</div>
+  </div>
+
+  <div class="mt-5">
+    <button class="btn btn-secondary" [routerLink]="[ '/order' ]">Back</button>
+    <button class="btn btn-primary ms-2" [routerLink]="[ '/order/edit', order?.id ]">Edit</button>
+  </div>
+
+  <hr>
+  <h2 class="mt-2">Products</h2>
+
+  <table mat-table [dataSource]="productDS" class="mat-elevation-z2 w-100 mt-3">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let product"> {{product.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="categoryName">
+      <th mat-header-cell *matHeaderCellDef> Category Name </th>
+      <td mat-cell *matCellDef="let product"> {{product.categoryName}} </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="productColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: productColumns;"></tr>
+  </table>
+
+</div>

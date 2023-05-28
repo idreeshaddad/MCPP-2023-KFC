@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Customer } from '../models/customers/customer.model';
 import { CustomerDetails } from '../models/customers/customerDetails.model';
 import { CustomerList } from '../models/customers/customerList.model';
+import { Lookup } from '../models/Lookups/lookup.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,10 @@ export class CustomerService {
   deleteCustomer(customerId: number): Observable<any> {
 
     return this.http.delete<any>(`${this.apiURL}/DeleteCustomer/${customerId}`);
+  }
+
+  getCustomersLookup(): Observable<Lookup[]> {
+
+    return this.http.get<Lookup[]>(`${this.apiURL}/GetCustomersLookup`);
   }
 }

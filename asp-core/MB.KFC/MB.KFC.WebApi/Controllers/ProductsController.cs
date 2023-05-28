@@ -118,7 +118,16 @@ namespace MB.KFC.WebApi.Controllers
 
             return NoContent();
         }
-        
+
+        [HttpGet]
+        public async Task<ActionResult<List<LookupDto>>> GetProductsLookup()
+        {
+            return await _context
+                        .Products
+                        .Select(p => new LookupDto { Id = p.Id, Name = p.Name })
+                        .ToListAsync();
+        }
+
         #endregion
 
         #region Pivate Methods
