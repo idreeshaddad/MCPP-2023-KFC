@@ -9,8 +9,14 @@ namespace MB.KFC.WebApi.AutoMapperProfiles
         public OrderAutoMapperProfile()
         {
             CreateMap<Order, OrderListDto>();
+
             CreateMap<Order, OrderDetailsDto>();
-            CreateMap<Order, OrderDto>().ReverseMap();
+
+            CreateMap<OrderDto, Order>();
+
+            CreateMap<Order, OrderDto>()
+                .ForMember(dest => dest.ProductIds, opts => opts.MapFrom(src => src.Products.Select(p => p.Id)));
+
 
         }
     }

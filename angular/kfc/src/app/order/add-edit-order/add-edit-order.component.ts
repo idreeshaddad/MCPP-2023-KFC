@@ -135,6 +135,7 @@ export class AddEditOrderComponent implements OnInit {
     this.orderSvc.createOrder(this.orderForm.value).subscribe({
       next: (orderFromApi: Order) => {
         this.snackBar.open("Order has been created Successfully");
+        this.router.navigate(['order']);
       },
       error: (err: HttpErrorResponse) => {
         this.snackBar.open(err.message);

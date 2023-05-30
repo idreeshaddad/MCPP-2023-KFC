@@ -130,6 +130,26 @@ namespace MB.KFC.WebApi.Controllers
             return NoContent();
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<OrderDto>> GetOrderForEdit(int id)
+        {
+            var order = await _context
+                                .Orders
+                                .Include(o => o.Products)
+                                .SingleOrDefaultAsync(o => o.Id == id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var orderDto = _mapper.Map<OrderDto>(order);
+
+            //orderDto.ProductIds = order.Products.Select(p => p.Id).ToList();
+
+            return orderDto;
+        }
+
         #endregion
 
         #region Private Methods
