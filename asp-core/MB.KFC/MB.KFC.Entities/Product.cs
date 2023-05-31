@@ -4,7 +4,8 @@
     {
         public Product()
         {
-            Orders = new List<Order>();    
+            Orders = new List<Order>();   
+            Carts = new List<Cart>();
         }
 
         public int Id { get; set; }
@@ -15,5 +16,7 @@
         public Category Category { get; set; }
 
         public List<Order> Orders { get; set; }
+
+        public List<Cart> Carts { get; set; }
     }
 }

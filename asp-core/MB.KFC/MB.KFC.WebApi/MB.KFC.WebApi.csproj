@@ -28,4 +28,8 @@
     <ProjectReference Include="..\MB.KFC.Entities\MB.KFC.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+
 </Project>

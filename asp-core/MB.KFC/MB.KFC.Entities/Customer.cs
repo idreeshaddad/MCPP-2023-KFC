@@ -6,7 +6,8 @@ namespace MB.KFC.Entities
     {
         public Customer()
         {
-            Orders = new List<Order>();    
+            Orders = new List<Order>();   
+            Carts = new List<Cart>();
         }
 
         public int Id { get; set; }
@@ -16,6 +17,8 @@ namespace MB.KFC.Entities
         public DateTime DateOfBirth { get; set; }
 
         public List<Order> Orders { get; set; }
+
+        public List<Cart> Carts { get; set; }
 
         [NotMapped]
         public int Age
