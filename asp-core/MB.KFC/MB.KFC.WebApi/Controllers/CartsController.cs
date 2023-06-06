@@ -32,13 +32,11 @@ namespace MB.KFC.WebApi.Controllers
         #region Actions
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CartListDto>>> GetCarts(int pageSize = 10, int pageNumber = 1)
+        public async Task<ActionResult<IEnumerable<CartListDto>>> GetCarts()
         {
             var carts = await _context
                                 .Carts
                                 .Include(c => c.Customer)
-                                .Skip((pageNumber - 1) * pageSize)
-                                .Take(pageSize)
                                 .ToListAsync();
 
             var cartDtos = _mapper.Map<List<CartListDto>>(carts);

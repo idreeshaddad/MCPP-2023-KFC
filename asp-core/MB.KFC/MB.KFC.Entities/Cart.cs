@@ -15,7 +15,7 @@ namespace MB.KFC.Entities
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
 
-        public CartStatus Status { get; set; }
+        public CartStatus Status { get; set; } = CartStatus.OpenCart;
 
 
         public List<Product> Products { get; set; }

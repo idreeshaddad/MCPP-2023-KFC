@@ -5,6 +5,8 @@ using MB.KFC.Entities;
 using AutoMapper;
 using MB.KFC.Dtos.Products;
 using MB.KFC.Dtos.Lookups;
+using MB.KFC.Utils;
+using MB.KFC.Dtos.Carts;
 
 namespace MB.KFC.WebApi.Controllers
 {
@@ -128,6 +130,28 @@ namespace MB.KFC.WebApi.Controllers
                         .ToListAsync();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddProductToCart(int productId)
+        {
+            var product = await _context
+                                    .Products
+                                    .FindAsync(productId);
+
+            if(product == null)
+            {
+                return NotFound();
+            }
+
+            var cart = await GetCart();
+
+            cart.Products.Add(product);
+            await _context.SaveChangesAsync();
+
+            // TODO update cart total price
+
+            return Ok();
+        }
+
         #endregion
 
         #region Pivate Methods
@@ -136,6 +160,28 @@ namespace MB.KFC.WebApi.Controllers
         {
             return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
         } 
+
+        private async Task<Cart> GetCart()
+        {
+            var cart = await _context
+                                .Carts
+                                .Where(c => c.Status == CartStatus.OpenCart)
+                                .SingleOrDefaultAsync();
+
+            if(cart != null) // An open cart has been found
+            {
+                return cart;
+            }
+
+            // What if there is not open cart? then create a new cart
+            var newCart = new Cart();
+            newCart.CustomerId = 10; // Customer 10 is hardcoded for now
+
+            await _context.Carts.AddAsync(newCart);
+            await _context.SaveChangesAsync();
+
+            return newCart;
+        }
 
         #endregion
     }

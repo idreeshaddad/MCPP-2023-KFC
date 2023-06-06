@@ -26,6 +26,7 @@ import { OrderComponent } from './order/order.component';
 import { DeleteOrderComponent } from './order/delete-order/delete-order.component';
 import { OrderDetailsComponent } from './order/order-details/order-details.component';
 import { AddEditOrderComponent } from './order/add-edit-order/add-edit-order.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AddEditOrderComponent } from './order/add-edit-order/add-edit-order.com
     OrderComponent,
     DeleteOrderComponent,
     OrderDetailsComponent,
-    AddEditOrderComponent
+    AddEditOrderComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

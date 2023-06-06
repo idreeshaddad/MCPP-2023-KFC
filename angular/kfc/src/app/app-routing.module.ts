@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CartComponent } from './cart/cart.component';
 import { AddEditCategoryComponent } from './category/add-edit-category/add-edit-category.component';
 import { CategoryDetailsComponent } from './category/category-details/category-details.component';
 import { CategoryComponent } from './category/category.component';
@@ -36,6 +37,8 @@ const routes: Routes = [
   { path: 'order/details/:id', component: OrderDetailsComponent, },
   { path: 'order/add', component: AddEditOrderComponent, },
   { path: 'order/edit/:id', component: AddEditOrderComponent, },
+
+  { path: 'cart', component: CartComponent, },
 
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];

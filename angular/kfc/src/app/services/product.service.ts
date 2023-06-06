@@ -42,4 +42,9 @@ export class ProductService {
 
     return this.http.get<Lookup[]>(`${this.apiURL}/GetProductsLookup`);
   }
+
+  addToCart(productId: number): Observable<any> {
+
+    return this.http.post<any>(`${this.apiURL}/AddProductToCart?productId=${productId}`, productId);
+  }
 }

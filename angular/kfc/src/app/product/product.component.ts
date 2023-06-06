@@ -51,6 +51,18 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  addToCart(product: Product): void {
+
+    this.productSvc.addToCart(product.id).subscribe({
+      next: () => {
+        this.snackBar.open(`${product.name} has been added to cart successfully`);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.snackBar.open(err.message);
+      }
+    });
+  }
+
   //#region Private Functions
 
   private loadProducts(): void {

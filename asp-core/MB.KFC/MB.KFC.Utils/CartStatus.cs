@@ -2,7 +2,7 @@
 {
     public enum CartStatus
     {
-        Pending,
+        OpenCart,
         CheckedOut
     }
 }
