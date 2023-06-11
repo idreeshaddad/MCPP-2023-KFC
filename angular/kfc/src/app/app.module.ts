@@ -27,6 +27,7 @@ import { DeleteOrderComponent } from './order/delete-order/delete-order.componen
 import { OrderDetailsComponent } from './order/order-details/order-details.component';
 import { AddEditOrderComponent } from './order/add-edit-order/add-edit-order.component';
 import { CartComponent } from './cart/cart.component';
+import { ImageUploaderComponent } from './directives/image-uploader/image-uploader.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { CartComponent } from './cart/cart.component';
     DeleteOrderComponent,
     OrderDetailsComponent,
     AddEditOrderComponent,
-    CartComponent
+    CartComponent,
+    ImageUploaderComponent
   ],
   imports: [
     BrowserModule,

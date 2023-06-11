@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ImageUploaderConfig } from 'src/app/directives/image-uploader/image-uploader.config';
+import { UploaderMode } from 'src/app/directives/image-uploader/uploaderMode.enum';
 import { PageMode } from 'src/app/enum/pageMode.enum';
 import { Customer } from 'src/app/models/customers/customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -13,6 +15,10 @@ import { CustomerService } from 'src/app/services/customer.service';
   styleUrls: ['./add-edit-customer.component.css']
 })
 export class AddEditCustomerComponent implements OnInit {
+
+  uploaderConfig: ImageUploaderConfig = {
+    mode: UploaderMode.Profile
+  }
 
   customerForm!: FormGroup;
 
@@ -53,6 +59,10 @@ export class AddEditCustomerComponent implements OnInit {
         this.editCustomer();
       }
     }
+  }
+
+  customerImageUploaded() {
+    alert("Customer Image Uploaded");
   }
 
   //#region Private Functions

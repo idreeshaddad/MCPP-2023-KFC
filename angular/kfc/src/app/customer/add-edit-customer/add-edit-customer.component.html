@@ -15,6 +15,7 @@
   <form [formGroup]="customerForm" (ngSubmit)="submitForm()">
 
     <div class="row">
+
       <div class="col-md-6">
         <div>
           <mat-form-field appearance="fill" class="w-100">
@@ -31,8 +32,6 @@
             <mat-error>Last name is required.</mat-error>
           </mat-form-field>
         </div>
-      </div>
-      <div class="col-md-6">
 
         <div>
           <mat-form-field appearance="fill" class="w-100">
@@ -54,6 +53,13 @@
         </div>
 
       </div>
+
+      <div class="col-md-6">
+
+        <app-image-uploader [config]="uploaderConfig" (onUploadFinished)="customerImageUploaded()"></app-image-uploader>
+
+      </div>
+
     </div>
 
     <div class="mt-3">
