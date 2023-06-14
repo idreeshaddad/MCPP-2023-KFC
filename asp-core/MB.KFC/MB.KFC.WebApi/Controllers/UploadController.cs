@@ -1,6 +1,6 @@
-﻿using MB.KFC.WebApi.Attributes;
+﻿using MB.KFC.Dtos.Uploaders;
+using MB.KFC.WebApi.Attributes;
 using MB.KFC.WebApi.Helpers.ImageUploader;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MB.KFC.WebApi.Controllers
@@ -9,6 +9,8 @@ namespace MB.KFC.WebApi.Controllers
     [ApiController]
     public class UploadController : ControllerBase
     {
+        #region Data and Const
+
         private readonly IImageUploader _fileUploader;
 
         public UploadController(IImageUploader fileUploader)
@@ -16,18 +18,47 @@ namespace MB.KFC.WebApi.Controllers
             _fileUploader = fileUploader;
         }
 
+        #endregion
+
+        #region Services
+
         [HttpPost, DisableRequestSizeLimit]
         public IActionResult Upload([AllowedExtensions()] IFormFile[] files)
         {
             if (files.Length > 0)
             {
                 var imagesNames = _fileUploader.Upload(files);
-                return Ok(new { imagesNames });
+
+                var imagesDtos = GetImageDtos(imagesNames);
+
+                return Ok(imagesDtos);
             }
             else
             {
                 return BadRequest();
             }
         }
+
+        #endregion
+
+        #region Private Methods
+
+        private List<UploaderImageDto> GetImageDtos(List<string> imagesNames)
+        {
+            var imagesNamesDtos = new List<UploaderImageDto>();
+
+            foreach (var imageName in imagesNames)
+            {
+                var villaImage = new UploaderImageDto();
+                villaImage.Id = 0;
+                villaImage.Name = imageName;
+
+                imagesNamesDtos.Add(villaImage);
+            }
+
+            return imagesNamesDtos;
+        }
+
+        #endregion
     }
 }

@@ -3,29 +3,36 @@
 
   <hr>
 
-  <div class="row mt-2">
-    <div class="col-md-2">Id</div>
-    <div class="col-md-4">{{ customer?.id}}</div>
-  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row mt-2">
+        <div class="col-md-2">Id</div>
+        <div class="col-md-8">{{ customer?.id}}</div>
+      </div>
 
-  <div class="row mt-2">
-    <div class="col-md-2">Name</div>
-    <div class="col-md-4">{{ customer?.fullName }}</div>
-  </div>
+      <div class="row mt-2">
+        <div class="col-md-2">Name</div>
+        <div class="col-md-8">{{ customer?.fullName }}</div>
+      </div>
 
-  <div class="row mt-2">
-    <div class="col-md-2">Age</div>
-    <div class="col-md-4">{{ customer?.age }}</div>
-  </div>
+      <div class="row mt-2">
+        <div class="col-md-2">Age</div>
+        <div class="col-md-8">{{ customer?.age }}</div>
+      </div>
 
-  <div class="row mt-2">
-    <div class="col-md-2">Phone Number</div>
-    <div class="col-md-4">{{ customer?.phoneNumber }}</div>
-  </div>
+      <div class="row mt-2">
+        <div class="col-md-2">Phone Number</div>
+        <div class="col-md-8">{{ customer?.phoneNumber }}</div>
+      </div>
 
-  <div class="mt-5">
-    <button class="btn btn-secondary" [routerLink]="[ '/customer' ]">Back</button>
-    <button class="btn btn-primary ms-2" [routerLink]="[ '/customer/edit', customer?.id ]">Edit</button>
+      <div class="mt-5">
+        <button class="btn btn-secondary" [routerLink]="[ '/customer' ]">Back</button>
+        <button class="btn btn-primary ms-2" [routerLink]="[ '/customer/edit', customer?.id ]">Edit</button>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <app-image-uploader [config]="uploaderConfig" [imagesNames]="images"></app-image-uploader>
+    </div>
   </div>
 
   <hr>

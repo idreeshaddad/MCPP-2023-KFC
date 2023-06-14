@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MB.KFC.EfCore;
-using MB.KFC.Entities;
 using AutoMapper;
 using MB.KFC.Dtos.Customers;
 using MB.KFC.Dtos.Lookups;
+using MB.KFC.Entities.Customers;
 
 namespace MB.KFC.WebApi.Controllers
 {
@@ -43,6 +43,7 @@ namespace MB.KFC.WebApi.Controllers
             var customer = await _context
                                     .Customers
                                     .Include(c => c.Orders)
+                                    .Include(customer => customer.Images)
                                     .SingleOrDefaultAsync(c => c.Id == id);
 
             if (customer == null)
@@ -71,6 +72,7 @@ namespace MB.KFC.WebApi.Controllers
         {
             var customer = await _context
                                     .Customers
+                                    .Include(customer => customer.Images)
                                     .SingleOrDefaultAsync(c => c.Id == id);
 
             if (customer == null)
@@ -86,13 +88,12 @@ namespace MB.KFC.WebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> EditCustomer(int id, CustomerDto customerDto)
         {
-            if (id != customerDto.Id)
-            {
-                return BadRequest();
-            }
+            var customer = await _context
+                                .Customers
+                                .Include(c => c.Images)
+                                .SingleAsync(c => c.Id == id);
 
-            var customer = _mapper.Map<Customer>(customerDto);
-            _context.Entry(customer).State = EntityState.Modified;
+            _mapper.Map(customerDto, customer);
 
             try
             {

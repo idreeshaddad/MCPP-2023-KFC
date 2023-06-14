@@ -1,4 +1,5 @@
 ﻿using MB.KFC.Dtos.Orders;
+using MB.KFC.Dtos.Uploaders;
 
 namespace MB.KFC.Dtos.Customers
 {
@@ -10,6 +11,8 @@ namespace MB.KFC.Dtos.Customers
 
         public int Age { get; set; }
         public string FullName { get; set; }
+        public List<UploaderImageDto> Images { get; set; }
+
 
         //TODO List<ProductDto>
         public List<OrderListDto> Orders { get; set; }

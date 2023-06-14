@@ -4,6 +4,7 @@ using MB.KFC.EfCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MB.KFC.EfCore.Migrations
 {
     [DbContext(typeof(KfcDbContext))]
-    partial class KfcDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230612151704_Customer_Image")]
+    partial class Customer_Image
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,8 +24,6 @@ namespace MB.KFC.EfCore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.HasSequence("UploaderImageSequence");
 
             modelBuilder.Entity("CartProduct", b =>
                 {
@@ -80,7 +81,7 @@ namespace MB.KFC.EfCore.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("MB.KFC.Entities.Customers.Customer", b =>
+            modelBuilder.Entity("MB.KFC.Entities.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,6 +93,10 @@ namespace MB.KFC.EfCore.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -161,26 +166,6 @@ namespace MB.KFC.EfCore.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("MB.KFC.Entities.UploaderImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("NEXT VALUE FOR [UploaderImageSequence]");
-
-                    SqlServerPropertyBuilderExtensions.UseSequence(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UploaderImages", (string)null);
-
-                    b.UseTpcMappingStrategy();
-                });
-
             modelBuilder.Entity("OrderProduct", b =>
                 {
                     b.Property<int>("OrdersId")
@@ -194,18 +179,6 @@ namespace MB.KFC.EfCore.Migrations
                     b.HasIndex("ProductsId");
 
                     b.ToTable("OrderProduct");
-                });
-
-            modelBuilder.Entity("MB.KFC.Entities.Customers.CustomerImage", b =>
-                {
-                    b.HasBaseType("MB.KFC.Entities.UploaderImage");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("CustomerImages", (string)null);
                 });
 
             modelBuilder.Entity("CartProduct", b =>
@@ -225,7 +198,7 @@ namespace MB.KFC.EfCore.Migrations
 
             modelBuilder.Entity("MB.KFC.Entities.Cart", b =>
                 {
-                    b.HasOne("MB.KFC.Entities.Customers.Customer", "Customer")
+                    b.HasOne("MB.KFC.Entities.Customer", "Customer")
                         .WithMany("Carts")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -236,7 +209,7 @@ namespace MB.KFC.EfCore.Migrations
 
             modelBuilder.Entity("MB.KFC.Entities.Order", b =>
                 {
-                    b.HasOne("MB.KFC.Entities.Customers.Customer", "Customer")
+                    b.HasOne("MB.KFC.Entities.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -271,25 +244,14 @@ namespace MB.KFC.EfCore.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MB.KFC.Entities.Customers.CustomerImage", b =>
-                {
-                    b.HasOne("MB.KFC.Entities.Customers.Customer", null)
-                        .WithMany("Images")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("MB.KFC.Entities.Category", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("MB.KFC.Entities.Customers.Customer", b =>
+            modelBuilder.Entity("MB.KFC.Entities.Customer", b =>
                 {
                     b.Navigation("Carts");
-
-                    b.Navigation("Images");
 
                     b.Navigation("Orders");
                 });

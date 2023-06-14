@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MB.KFC.Entities
+namespace MB.KFC.Entities.Customers
 {
     public class Customer
     {
         public Customer()
         {
-            Orders = new List<Order>();   
+            Orders = new List<Order>();
             Carts = new List<Cart>();
+            Images = new List<CustomerImage>();
         }
 
         public int Id { get; set; }
@@ -15,6 +16,10 @@ namespace MB.KFC.Entities
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime DateOfBirth { get; set; }
+
+
+        public List<CustomerImage> Images { get; set; }
+
 
         public List<Order> Orders { get; set; }
 

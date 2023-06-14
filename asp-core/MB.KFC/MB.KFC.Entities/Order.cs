@@ -1,4 +1,6 @@
-﻿namespace MB.KFC.Entities
+﻿using MB.KFC.Entities.Customers;
+
+namespace MB.KFC.Entities
 {
     public class Order
     {

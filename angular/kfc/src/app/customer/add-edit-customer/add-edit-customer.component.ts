@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImageUploaderConfig } from 'src/app/directives/image-uploader/image-uploader.config';
-import { UploaderMode } from 'src/app/directives/image-uploader/uploaderMode.enum';
+import { UploaderMode, UploaderStyle, UploaderType } from 'src/app/directives/image-uploader/uploader.enums';
+import { UploaderImage } from 'src/app/directives/image-uploader/UploaderImage.data';
 import { PageMode } from 'src/app/enum/pageMode.enum';
 import { Customer } from 'src/app/models/customers/customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -16,9 +17,9 @@ import { CustomerService } from 'src/app/services/customer.service';
 })
 export class AddEditCustomerComponent implements OnInit {
 
-  uploaderConfig: ImageUploaderConfig = {
-    mode: UploaderMode.Profile
-  }
+  images: UploaderImage[] = [];
+  uploaderConfig = new ImageUploaderConfig(UploaderStyle.Profile, UploaderMode.AddEdit, UploaderType.Single);
+
 
   customerForm!: FormGroup;
 
@@ -61,8 +62,11 @@ export class AddEditCustomerComponent implements OnInit {
     }
   }
 
-  customerImageUploaded() {
-    alert("Customer Image Uploaded");
+  uploadFinished(uploaderImages: UploaderImage[]) {
+
+    this.customerForm.patchValue({
+      images: uploaderImages
+    });
   }
 
   //#region Private Functions
@@ -75,6 +79,7 @@ export class AddEditCustomerComponent implements OnInit {
       lastName: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
+      images: [[]]
     });
   }
 
@@ -93,6 +98,10 @@ export class AddEditCustomerComponent implements OnInit {
       next: (customerFromApi: Customer) => {
         this.customer = customerFromApi;
         this.patchCustomerForm();
+
+        if (customerFromApi.images) {
+          this.images = customerFromApi.images;
+        }
       },
       error: (err: HttpErrorResponse) => {
         console.error(err.error);
@@ -107,6 +116,7 @@ export class AddEditCustomerComponent implements OnInit {
       lastName: this.customer.lastName,
       phoneNumber: this.customer.phoneNumber,
       dateOfBirth: this.customer.dateOfBirth,
+      images: this.customer.images
     });
   }
 

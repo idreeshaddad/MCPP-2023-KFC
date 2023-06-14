@@ -1,25 +1,34 @@
-import { HttpClient, HttpErrorResponse, HttpEventType, HttpResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEventType,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ImageUploaderConfig } from './image-uploader.config';
-import { UploaderMode } from './uploaderMode.enum';
+import { UploaderImage } from './UploaderImage.data';
+import { UploaderMode, UploaderStyle, UploaderType } from './uploader.enums';
 
 @Component({
   selector: 'app-image-uploader',
   templateUrl: './image-uploader.component.html',
-  styleUrls: ['./image-uploader.component.css']
+  styleUrls: ['./image-uploader.component.css'],
 })
 export class ImageUploaderComponent implements OnInit {
 
   progress!: number;
-  imageSrc!: string;
+  silhouetteImage!: string;
+
+  uploaderStyleEnum = UploaderStyle;
   uploaderModeEnum = UploaderMode;
+  uploaderTypeEnum = UploaderType;
 
   @Output() public onUploadFinished = new EventEmitter();
 
-  @Input() public config: ImageUploaderConfig = {
-    mode: UploaderMode.Normal
-  };
+  @Input() public config!: ImageUploaderConfig;
+  @Input() public imagesNames: UploaderImage[] = [];
+
+  //slideConfig = { slidesToShow: 4, slidesToScroll: 4 };
 
   constructor(private http: HttpClient) { }
 
@@ -29,7 +38,6 @@ export class ImageUploaderComponent implements OnInit {
   }
 
   uploadFile(files: FileList | null) {
-
     if (files === null) {
       return;
     }
@@ -40,46 +48,48 @@ export class ImageUploaderComponent implements OnInit {
       formData.append('files', files[i]);
     }
 
-    this.http.post(environment.uploadUrl, formData, { reportProgress: true, observe: 'events' })
+    this.http
+      .post(environment.uploadUrl, formData, {
+        reportProgress: true,
+        observe: 'events',
+      })
       .subscribe({
         next: (event) => {
           if (event.type === HttpEventType.UploadProgress) {
             if (event.total == undefined) {
               event.total = 1;
-              alert("event total is undefined");
+              alert('event total is undefined');
             }
-            this.progress = Math.round(100 * event.loaded / event.total);
-          }
-          else if (event.type === HttpEventType.Response) {
+            this.progress = Math.round((100 * event.loaded) / event.total);
+          } else if (event.type === HttpEventType.Response) {
+            let uploaderImages = event.body as UploaderImage[];
+            this.onUploadFinished.emit(uploaderImages);
 
-            this.onUploadFinished.emit(event.body);
-
-            let imagesNames = this.getImagesNamesArray(event);
-
-            this.imageSrc = `${environment.imgStorageUrl}/${imagesNames[0]}`;
+            this.imagesNames = uploaderImages;
           }
         },
-        error: (err: HttpErrorResponse) => console.log(err)
+        error: (err: HttpErrorResponse) => console.log(err),
       });
+  }
+
+  getImageUrlFromUploaderImage(img: UploaderImage): string {
+    return `${environment.imgStorageUrl}/${img.name}`;
+  }
+
+  getImageUrlFromString(imgName: string): string {
+    return `${environment.imgStorageUrl}/${imgName}`;
   }
 
   //#region Private
 
   private setSilhouetteImage() {
 
-    if (this.config.mode == UploaderMode.Normal) {
-      this.imageSrc = '../../../assets/imgs/item.png';
+    if (this.config.style == UploaderStyle.Normal) {
+      this.silhouetteImage = '/assets/imgs/item.png';
+    } else {
+      this.silhouetteImage = '/assets/imgs/user.png';
     }
-    else {
-      this.imageSrc = '../../../assets/imgs/user.png';
-    }
-  }
-
-  private getImagesNamesArray(event: HttpResponse<Object>): string[] {
-
-    return (event.body as any).imagesNames as string[];
   }
 
   //#endregion
-
 }

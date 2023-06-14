@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MB.KFC.Dtos.Customers;
-using MB.KFC.Entities;
+using MB.KFC.Entities.Customers;
 
 namespace MB.KFC.WebApi.AutoMapperProfiles
 {

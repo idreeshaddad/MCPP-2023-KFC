@@ -1,6 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ImageUploaderConfig } from 'src/app/directives/image-uploader/image-uploader.config';
+import { UploaderMode, UploaderStyle, UploaderType } from 'src/app/directives/image-uploader/uploader.enums';
+import { UploaderImage } from 'src/app/directives/image-uploader/UploaderImage.data';
 import { CustomerDetails } from 'src/app/models/customers/customerDetails.model';
 import { OrderList } from 'src/app/models/orders/orderList.model';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -17,6 +20,9 @@ export class CustomerDetailsComponent implements OnInit {
 
   orderDS: OrderList[] = [];
   orderColumns: string[] = ['id', 'totalPrice', 'note', 'orderDate', 'actions'];
+
+  images: UploaderImage[] = [];
+  uploaderConfig = new ImageUploaderConfig(UploaderStyle.Profile, UploaderMode.Details, UploaderType.Single);
 
   constructor(private customerSvc: CustomerService, private activatedRoute: ActivatedRoute) { }
 
@@ -46,6 +52,7 @@ export class CustomerDetailsComponent implements OnInit {
       next: (customerFromApi: CustomerDetails) => {
         this.customer = customerFromApi;
         this.orderDS = this.customer.orders;
+        this.images = this.customer.images;
       },
       error: (err: HttpErrorResponse) => {
         console.error(err.error);
