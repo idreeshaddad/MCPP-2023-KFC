@@ -1,5 +1,6 @@
 ﻿using MB.KFC.Entities;
 using MB.KFC.Entities.Customers;
+using MB.KFC.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace MB.KFC.EfCore

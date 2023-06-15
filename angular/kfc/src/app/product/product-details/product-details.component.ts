@@ -3,6 +3,9 @@ import { ProductService } from 'src/app/services/product.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/models/products/product.model';
+import { UploaderImage } from 'src/app/directives/image-uploader/UploaderImage.data';
+import { ImageUploaderConfig } from 'src/app/directives/image-uploader/image-uploader.config';
+import { UploaderMode, UploaderStyle, UploaderType } from 'src/app/directives/image-uploader/uploader.enums';
 
 @Component({
   selector: 'app-product-details',
@@ -10,6 +13,9 @@ import { Product } from 'src/app/models/products/product.model';
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit {
+
+  images: UploaderImage[] = [];
+  uploaderConfig = new ImageUploaderConfig(UploaderStyle.Normal, UploaderMode.Details, UploaderType.Multiple);
 
   constructor(
     private productSvc: ProductService,
@@ -43,6 +49,11 @@ export class ProductDetailsComponent implements OnInit {
     this.productSvc.getProduct(this.productId).subscribe({
       next: (productsFromApi: Product) => {
         this.product = productsFromApi;
+
+        if (productsFromApi.images) {
+          this.images = productsFromApi.images;
+        }
+
       },
       error: (err: HttpErrorResponse) => {
         console.error(err.error);

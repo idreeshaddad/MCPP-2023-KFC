@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ImageUploaderConfig } from 'src/app/directives/image-uploader/image-uploader.config';
+import { UploaderMode, UploaderStyle, UploaderType } from 'src/app/directives/image-uploader/uploader.enums';
+import { UploaderImage } from 'src/app/directives/image-uploader/UploaderImage.data';
 import { PageMode } from 'src/app/enum/pageMode.enum';
 import { Lookup } from 'src/app/models/Lookups/lookup.model';
 import { Product } from 'src/app/models/products/product.model';
@@ -16,6 +19,9 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./add-edit-product.component.css']
 })
 export class AddEditProductComponent implements OnInit {
+
+  images: UploaderImage[] = [];
+  uploaderConfig = new ImageUploaderConfig(UploaderStyle.Normal, UploaderMode.AddEdit, UploaderType.Multiple);
 
   productForm!: FormGroup;
   categoryLookup: Lookup[] = [];
@@ -73,6 +79,13 @@ export class AddEditProductComponent implements OnInit {
     }
   }
 
+  uploadFinished(uploaderImages: UploaderImage[]) {
+
+    this.productForm.patchValue({
+      images: uploaderImages
+    });
+  }
+
   //#region Private Functions
 
   private buildForm(): void {
@@ -81,7 +94,8 @@ export class AddEditProductComponent implements OnInit {
       id: [0],
       name: ['', Validators.required],
       price: ['', Validators.required],
-      categoryId: ['', Validators.required]
+      categoryId: ['', Validators.required],
+      images: [[]]
     });
   }
 
@@ -110,6 +124,10 @@ export class AddEditProductComponent implements OnInit {
 
         this.product = productFromApi;
         this.patchProductForm();
+
+        if (productFromApi.images) {
+          this.images = productFromApi.images;
+        }
 
       },
       error: (err: HttpErrorResponse) => {

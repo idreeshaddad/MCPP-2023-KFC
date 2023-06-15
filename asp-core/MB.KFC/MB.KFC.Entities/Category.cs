@@ -1,4 +1,6 @@
-﻿namespace MB.KFC.Entities
+﻿using MB.KFC.Entities.Products;
+
+namespace MB.KFC.Entities
 {
     public class Category
     {

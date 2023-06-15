@@ -3,25 +3,34 @@
 
   <hr>
 
-  <div class="row mt-2">
-    <div class="col-md-2 fw-bold">Id</div>
-    <div class="col-md-4">{{ product?.id}}</div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row mt-2">
+        <div class="col-md-2 fw-bold">Id</div>
+        <div class="col-md-4">{{ product?.id}}</div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-md-2 fw-bold">Name</div>
+        <div class="col-md-4">{{ product?.name}}</div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-md-2 fw-bold">Price</div>
+        <div class="col-md-4">{{ product?.price | currency}}</div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-md-2 fw-bold">Category</div>
+        <div class="col-md-4">{{ product?.categoryName}}</div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <app-image-uploader [config]="uploaderConfig" [imagesNames]="images"></app-image-uploader>
+    </div>
   </div>
 
-  <div class="row mt-2">
-    <div class="col-md-2 fw-bold">Name</div>
-    <div class="col-md-4">{{ product?.name}}</div>
-  </div>
 
-  <div class="row mt-2">
-    <div class="col-md-2 fw-bold">Price</div>
-    <div class="col-md-4">{{ product?.price | currency}}</div>
-  </div>
-
-  <div class="row mt-2">
-    <div class="col-md-2 fw-bold">Category</div>
-    <div class="col-md-4">{{ product?.categoryName}}</div>
-  </div>
 
   <div class="mt-5">
     <button class="btn btn-secondary" [routerLink]="[ '/product' ]">Back</button>

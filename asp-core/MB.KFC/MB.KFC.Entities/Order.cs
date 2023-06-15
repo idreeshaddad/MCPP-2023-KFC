@@ -1,4 +1,5 @@
 ﻿using MB.KFC.Entities.Customers;
+using MB.KFC.Entities.Products;
 
 namespace MB.KFC.Entities
 {

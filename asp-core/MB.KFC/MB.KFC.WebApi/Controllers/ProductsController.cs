@@ -6,7 +6,7 @@ using AutoMapper;
 using MB.KFC.Dtos.Products;
 using MB.KFC.Dtos.Lookups;
 using MB.KFC.Utils;
-using MB.KFC.Dtos.Carts;
+using MB.KFC.Entities.Products;
 
 namespace MB.KFC.WebApi.Controllers
 {
@@ -48,6 +48,7 @@ namespace MB.KFC.WebApi.Controllers
             var product = await _context
                                     .Products
                                     .Include(p => p.Category)
+                                    .Include(p => p.Images)
                                     .SingleOrDefaultAsync(p => p.Id == id);
 
             if (product == null)

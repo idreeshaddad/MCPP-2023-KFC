@@ -1,4 +1,6 @@
-﻿namespace MB.KFC.Dtos.Products
+﻿using MB.KFC.Dtos.Uploaders;
+
+namespace MB.KFC.Dtos.Products
 {
     public class ProductDto
     {
@@ -8,5 +10,6 @@
 
         public int CategoryId { get; set; }
         public string? CategoryName { get; set; }
+        public List<UploaderImageDto> Images { get; set; }
     }
 }

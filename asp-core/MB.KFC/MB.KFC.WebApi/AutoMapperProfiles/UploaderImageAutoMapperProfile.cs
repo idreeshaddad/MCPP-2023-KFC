@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MB.KFC.Dtos.Uploaders;
 using MB.KFC.Entities.Customers;
+using MB.KFC.Entities.Products;
 
 namespace MB.KFC.WebApi.AutoMapperProfiles
 {
@@ -9,6 +10,7 @@ namespace MB.KFC.WebApi.AutoMapperProfiles
         public UploaderImageAutoMapperProfile()
         {
             CreateMap<UploaderImageDto, CustomerImage>().ReverseMap();
+            CreateMap<UploaderImageDto, ProductImage>().ReverseMap();
         }
     }
 }
