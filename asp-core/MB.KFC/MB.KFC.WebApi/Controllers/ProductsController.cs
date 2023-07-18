@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using MB.KFC.Dtos.Lookups;
+using MB.KFC.Dtos.Products;
 using MB.KFC.EfCore;
 using MB.KFC.Entities;
-using AutoMapper;
-using MB.KFC.Dtos.Products;
-using MB.KFC.Dtos.Lookups;
-using MB.KFC.Utils;
 using MB.KFC.Entities.Products;
+using MB.KFC.Utils;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MB.KFC.WebApi.Controllers
 {
@@ -125,10 +125,22 @@ namespace MB.KFC.WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<List<LookupDto>>> GetProductsLookup()
         {
-            return await _context
-                        .Products
-                        .Select(p => new LookupDto { Id = p.Id, Name = p.Name })
-                        .ToListAsync();
+            // This is in three statements 
+            // - Easier to read
+            // - easier to debug
+            var products  = await _context
+                                    .Products
+                                    .ToListAsync();
+
+            var productDtos = _mapper.Map<List<LookupDto>>(products);
+
+            return productDtos;
+
+            // This is in one statement
+            //return await _context
+            //            .Products
+            //            .Select(p => new LookupDto { Id = p.Id, Name = p.Name })
+            //            .ToListAsync();
         }
 
         [HttpPost]
@@ -138,7 +150,7 @@ namespace MB.KFC.WebApi.Controllers
                                     .Products
                                     .FindAsync(productId);
 
-            if(product == null)
+            if (product == null)
             {
                 return NotFound();
             }
@@ -160,7 +172,7 @@ namespace MB.KFC.WebApi.Controllers
         private bool ProductExists(int id)
         {
             return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
-        } 
+        }
 
         private async Task<Cart> GetCart()
         {
@@ -169,7 +181,7 @@ namespace MB.KFC.WebApi.Controllers
                                 .Where(c => c.Status == CartStatus.OpenCart)
                                 .SingleOrDefaultAsync();
 
-            if(cart != null) // An open cart has been found
+            if (cart != null) // An open cart has been found
             {
                 return cart;
             }
